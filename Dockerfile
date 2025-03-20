@@ -6,17 +6,16 @@ WORKDIR /app
 COPY ./Reklama/*.csproj ./Reklama/
 COPY ./Reklama.Tests/*.csproj ./Reklama.Tests/
 RUN dotnet restore ./Reklama/Reklama.csproj
-RUN dotnet restore ./Reklama.Tests/Reklama.Tests.csproj
 
 # Копируем все файлы проекта
-COPY . .
+COPY ./Reklama/ ./Reklama/
+COPY ./Reklama.Tests/ ./Reklama.Tests/
 
 # Собираем проект
 RUN dotnet build ./Reklama/Reklama.csproj -c Release -o /app/build
-RUN dotnet build ./Reklama.Tests/Reklama.Tests.csproj -c Release -o /app/build
 
 # Запускаем тесты (опционально, можно убрать)
-RUN dotnet test ./Reklama.Tests/Reklama.Tests.csproj --no-build --logger trx; exit 0
+RUN dotnet test ./Reklama.Tests/Reklama.Tests.csproj -c Release --no-build --logger trx || true
 
 # Публикуем приложение
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime

@@ -1,0 +1,54 @@
+# Игнорировать файлы и папки, созданные при сборке .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.app
+*.vs
+*.db
+
+# Игнорировать конфигурационные файлы пользователя Visual Studio
+.vscode/
+*.suo
+*.user
+*.csproj.user
+*.sln.docstates
+
+# Игнорировать логи и файлы трассировки
+*.log
+logs/
+trace.log
+
+# Игнорировать результаты тестов
+TestResults/
+
+# Игнорировать файлы Docker
+**/[Dd]ockerfile
+**/docker-compose.*
+**/Dockerfile.*
+**/*.tar
+
+# Игнорировать зависимости npm/yarn (если есть фронтенд)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Игнорировать файлы IDE и системы контроля версий
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Игнорировать файлы конфигурации среды выполнения
+appsettings.json
+appsettings.Development.json
+.env
+
+# Игнорировать файлы для публикации
+publish/
+wwwroot/
+dist/
+
+# Игнорировать файлы данных для тестов
+Data/

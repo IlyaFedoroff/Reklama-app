@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Reklama")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa83ce418dc4cdbdcaf2d1dc99e973b224522e21")]
 [assembly: System.Reflection.AssemblyProductAttribute("Reklama")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Reklama")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
