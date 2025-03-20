@@ -51,5 +51,5 @@ GET
 ## 4. Unit-тесты
 Для запуска тестов выполните команду:
 ```bash
-docker-compose run reklama-tests
+docker-compose run reklama-tests dotnet test ./Reklama.Tests/Reklama.Tests.csproj -c Release --list-tests
 ```
