@@ -43,9 +43,9 @@ public class ReklamaServiceTests
                 { "/ru/chelobl", new HashSet<string> { "/ru" } }
         };
 
-        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, reklamas);
-        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, locationParentsCache);
 
         var result = _reklamaService.SearchByLocation(location ?? string.Empty);
@@ -64,9 +64,9 @@ public class ReklamaServiceTests
         var reklamas = new Dictionary<string, HashSet<string>>();
         var locationParentsCache = new Dictionary<string, HashSet<string>>();
 
-        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, reklamas);
-        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, locationParentsCache);
 
         var result = _reklamaService.SearchByLocation(location ?? string.Empty);
@@ -102,9 +102,9 @@ public class ReklamaServiceTests
             { "/ru/msk/leninsk", new HashSet<string> { "/ru/msk", "/ru" } }
         };
 
-        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_reklamas", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, reklamas);
-        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        _reklamaService.GetType().GetField("_locationParentsCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?
             .SetValue(_reklamaService, locationParentsCache);
 
         var result = _reklamaService.SearchByLocation(location ?? string.Empty);

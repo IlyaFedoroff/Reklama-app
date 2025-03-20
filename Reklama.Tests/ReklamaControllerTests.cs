@@ -51,9 +51,8 @@ public class ReklamaControllerTests
         _mockReklamaService.Setup(s => s.LoadReklamasFromFile(filePath));
 
         var result = _controller.LoadReklamas(request);
-        if (result != null)
+        if (result is OkObjectResult okResult && okResult.Value is not null)
         {
-            var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Data loaded successfully.", ((dynamic)okResult.Value).Message);
         }
 

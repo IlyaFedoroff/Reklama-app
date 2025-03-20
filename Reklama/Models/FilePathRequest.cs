@@ -1,4 +1,4 @@
 public class FilePathRequest
 {
-    public string FilePath {get; set; } = string.Empty;
+    public string? FilePath {get; set; } = string.Empty;
 }
