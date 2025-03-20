@@ -14,9 +14,6 @@ COPY ./Reklama.Tests/ ./Reklama.Tests/
 # Собираем проект
 RUN dotnet build ./Reklama/Reklama.csproj -c Release -o /app/build
 
-# Запускаем тесты (опционально, можно убрать)
-RUN dotnet test ./Reklama.Tests/Reklama.Tests.csproj -c Release --no-build --logger trx || true
-
 # Публикуем приложение
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
