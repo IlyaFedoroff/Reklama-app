@@ -1,49 +1,59 @@
-# Игнорировать файлы и папки, созданные при сборке .NET
+# Общие файлы для .NET
 bin/
 obj/
-*.dll
-*.exe
-*.pdb
-*.app
-*.vs
-*.db
-
-# Игнорировать конфигурационные файлы пользователя Visual Studio
-.vscode/
-*.suo
 *.user
+*.vs
+*.suo
+*.cache
 *.csproj.user
+*.dbmdl
+*.pidb
+*.ilk
+*.pdb
+*.idb
 *.sln.docstates
 
-# Игнорировать логи и файлы трассировки
+# Логи
 *.log
-logs/
-trace.log
+*.tlog
+*.log*
 
-# Игнорировать результаты тестов
+# Папки и файлы тестов
 TestResults/
+*.trx
+*.coverage
+*.testsettings
+*.runsettings
+*.ncrunch*
+*.dotCover
+*.coveragexml
 
-
-# Игнорировать зависимости npm/yarn (если есть фронтенд)
+# Конфиги и зависимости
 node_modules/
-package-lock.json
+npm-debug.log
 yarn.lock
+package-lock.json
 
-# Игнорировать файлы IDE и системы контроля версий
-.idea/
+# Артефакты кэша и временные файлы
+*.tmp
+*.cache
+*.bak
 *.swp
-.DS_Store
-Thumbs.db
 
-# Игнорировать файлы конфигурации среды выполнения
-appsettings.json
-appsettings.Development.json
+# Конфиги среды разработки
+.idea/
+.vscode/
 .env
+.env.local
 
-# Игнорировать файлы для публикации
-publish/
-wwwroot/
-dist/
+# Файлы сборки
+*.dll
+*.exe
+*.so
+*.dylib
+*.lib
+*.a
 
-# Игнорировать файлы данных для тестов
-Data/
+# Файлы покрытия кода
+lcov-report/
+coverage/

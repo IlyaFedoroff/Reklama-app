@@ -120,3 +120,4 @@ E:\Study\learning\Reklama\Reklama.Tests\bin\Debug\net9.0\Serilog.Settings.Config
 E:\Study\learning\Reklama\Reklama.Tests\bin\Debug\net9.0\Serilog.Sinks.Console.dll
 E:\Study\learning\Reklama\Reklama.Tests\bin\Debug\net9.0\Serilog.Sinks.Debug.dll
 E:\Study\learning\Reklama\Reklama.Tests\bin\Debug\net9.0\Serilog.Sinks.File.dll
+E:\Study\learning\Reklama\Reklama.Tests\obj\Debug\net9.0\Reklama.Tests.sourcelink.json

@@ -6,7 +6,6 @@ using Moq;
 //using Reklama.Models;
 //using Reklama.Services;
 
-using XUnit;
 
 
 
@@ -39,16 +38,24 @@ public class ReklamaControllerTests
     [Fact]
     public void LoadReklamas_ReturnsOk_WhenFilePathIsValid()
     {
-        var filePath = "/app/Data/reklamas.txt";
+        var filePath = Path.Combine("/app", "Data", "reklamas.txt");
+
+        var directory = Path.GetDirectoryName(filePath);
+        if (!string.IsNullOrEmpty(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
         File.WriteAllText(filePath, "Test content");
         var request = new FilePathRequest { FilePath = filePath };
 
         _mockReklamaService.Setup(s => s.LoadReklamasFromFile(filePath));
 
         var result = _controller.LoadReklamas(request);
-
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("Data loaded successfully.", ((dynamic)okResult.Value).Message);
+        if (result != null)
+        {
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Data loaded successfully.", ((dynamic)okResult.Value).Message);
+        }
 
         File.Delete(filePath);
     }

@@ -230,3 +230,4 @@ E:\Study\learning\Reklama\Reklama\bin\Debug\net9.0\Serilog.Settings.Configuratio
 E:\Study\learning\Reklama\Reklama\bin\Debug\net9.0\Serilog.Sinks.Console.dll
 E:\Study\learning\Reklama\Reklama\bin\Debug\net9.0\Serilog.Sinks.Debug.dll
 E:\Study\learning\Reklama\Reklama\bin\Debug\net9.0\Serilog.Sinks.File.dll
+E:\Study\learning\Reklama\Reklama\obj\Debug\net9.0\Reklama.sourcelink.json
