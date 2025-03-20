@@ -20,7 +20,7 @@ POST
 ```
 **BODY:**
 ```JSON
- {
+{
   "FilePath": "/app/Data/reklamas.txt"
 }
 ```
