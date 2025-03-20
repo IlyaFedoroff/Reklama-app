@@ -1,0 +1,6 @@
+@Reklama_HostAddress = http://localhost:5066
+
+GET {{Reklama_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
