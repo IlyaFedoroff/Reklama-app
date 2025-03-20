@@ -1,0 +1,25 @@
+services:
+  reklama-app:
+    image: reklama-app
+    container_name: reklama-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./Reklama/Data:/app/Data
+    build:
+      context: .
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: always
+
+    reklama-tests:
+      image: reklama-app
+      container_name: reklama-tests
+      build:
+        context: .
+      command: ["dotnet", "test", "./Reklama.Tests.Reklama.Tests.csproj", "-c", "Release", "--no-build"]
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+      volumes:
+        - ./Reklama/Data:/app/Data
+      restart: "no"

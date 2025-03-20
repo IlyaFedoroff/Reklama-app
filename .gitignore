@@ -23,11 +23,6 @@ trace.log
 # Игнорировать результаты тестов
 TestResults/
 
-# Игнорировать файлы Docker
-**/[Dd]ockerfile
-**/docker-compose.*
-**/Dockerfile.*
-**/*.tar
 
 # Игнорировать зависимости npm/yarn (если есть фронтенд)
 node_modules/
