@@ -1,7 +1,7 @@
 
 public class ReklamaService : IReklamaService
 {
-    private readonly Dictionary<string, HashSet<string>> _reklamas;
+    private Dictionary<string, HashSet<string>> _reklamas;
     private  readonly Dictionary<string, HashSet<string>> _locationParentsCache;
     private readonly ILogger<ReklamaService> _logger;
 
@@ -9,10 +9,10 @@ public class ReklamaService : IReklamaService
     {
         _logger = logger;
         _reklamas = new();
-        _locationParentsCache = new Dictionary<string, HashSet<string>>();
+        _locationParentsCache = new();
     }
 
-    public void LoadReklamasFromFile(string filePath)
+    public async Task LoadReklamasFromFileAsync(string filePath)
     {
         _logger.LogInformation("Loading reklamas from file: {FilePath}", filePath);
 
@@ -25,64 +25,84 @@ public class ReklamaService : IReklamaService
             return;
         }
 
-        var lines = File.ReadAllLines(filePath);
-        _logger.LogInformation("Loaded {LineCount} lines from file: {FilePath}", lines.Length, filePath);
+        var tempReklamas = new Dictionary<string, HashSet<string>>();
+        var tempLocationParentsCache = new Dictionary<string, HashSet<string>>();
 
-        foreach (var line in lines)
+        try
         {
-            var parts = line.Trim().Split(':');
-            if (parts.Length != 2)
-            {
-                _logger.LogWarning("Skipping invalid line: {Line}", line);
-                continue;
-            }
 
-            var platform = parts[0].Trim();
-            var locations = parts[1].Split(',');
+            var lines = await File.ReadAllLinesAsync(filePath);
+            _logger.LogInformation("Loaded {LineCount} lines from file: {FilePath}", lines.Length, filePath);
 
-            foreach (var location in locations)
+            foreach (var line in lines)
             {
-                var loc = location.Trim();
-                if (string.IsNullOrWhiteSpace(loc))
+                var parts = line.Trim().Split(':');
+                if (parts.Length != 2)
                 {
-                    _logger.LogWarning("Skipping empty or invalid location: {Location}", location);
+                    _logger.LogWarning("Skipping invalid line: {Line}", line);
                     continue;
                 }
 
-                if (!_reklamas.ContainsKey(loc))
-                {
-                    _reklamas[loc] = new HashSet<string>();
-                    _logger.LogInformation("Added new location: {Location}", loc);
-                }
+                var platform = parts[0].Trim();
+                var locations = parts[1].Split(',');
 
-                if (!_reklamas[loc].Contains(platform))
+                foreach (var location in locations)
                 {
-                    _reklamas[loc].Add(platform);
-                    _logger.LogInformation("Added platform {Platform} to location {Location}", platform, loc);
-                }
-
-                var parentLocations = GetParentLocations(loc);
-                _locationParentsCache[loc] = new HashSet<string>(parentLocations);
-
-                foreach (var parentLocation in parentLocations)
-                {
-                    if (!_locationParentsCache.ContainsKey(parentLocation))
+                    var loc = location.Trim();
+                    if (string.IsNullOrWhiteSpace(loc))
                     {
-                        _locationParentsCache[parentLocation] = new HashSet<string>();
+                        _logger.LogWarning("Skipping empty or invalid location: {Location}", location);
+                        continue;
                     }
-                    _locationParentsCache[parentLocation].Add(loc);
+
+                    if (!tempReklamas.ContainsKey(loc))
+                    {
+                        tempReklamas[loc] = new HashSet<string>();
+                        _logger.LogInformation("Added new location: {Location}", loc);
+                    }
+
+                    if (!tempReklamas[loc].Contains(platform))
+                    {
+                        tempReklamas[loc].Add(platform);
+                        _logger.LogInformation("Added platform {Platform} to location {Location}", platform, loc);
+                    }
+
+                    var parentLocations = GetParentLocations(loc);
+                    tempLocationParentsCache[loc] = new HashSet<string>(parentLocations);
+
+                    foreach (var parentLocation in parentLocations)
+                    {
+                        if (!tempLocationParentsCache.ContainsKey(parentLocation))
+                        {
+                            tempLocationParentsCache[parentLocation] = new HashSet<string>();
+                        }
+                        tempLocationParentsCache[parentLocation].Add(loc);
+                    }
                 }
             }
-        }
 
-        _logger.LogInformation("Finished loading reklamas from file.");
-        _logger.LogInformation("Current reklamas data:");
-        foreach (var kvp in _reklamas)
+            _reklamas = tempReklamas;
+            _locationParentsCache.Clear();
+            foreach (var kvp in tempLocationParentsCache)
+            {
+                _locationParentsCache[kvp.Key] = new HashSet<string>(kvp.Value);
+            }
+
+
+            _logger.LogInformation("Finished loading reklamas from file.");
+            _logger.LogInformation("Current reklamas data:");
+            foreach (var kvp in _reklamas)
+            {
+                _logger.LogInformation("Location: {Location}, Platforms: {Platforms}", kvp.Key, string.Join(", ", kvp.Value));
+                LogReklamasData();
+            }
+
+        }
+        catch (Exception ex)
         {
-            _logger.LogInformation("Location: {Location}, Platforms: {Platforms}", kvp.Key, string.Join(", ", kvp.Value));
+            _logger.LogError(ex, "Error loading reklamas from file: {FilePath}", filePath);
         }
     }
-
 
 
     public List<string> SearchByLocation(string? location)
@@ -140,5 +160,14 @@ public class ReklamaService : IReklamaService
         }
 
         return parentLocations;
+    }
+
+    private void LogReklamasData()
+    {
+        _logger.LogInformation("Current reklamas data:");
+        foreach (var kvp in _reklamas)
+        {
+            _logger.LogInformation("Location: {Location}, Platforms: {Platforms}", kvp.Key, string.Join(",", kvp.Value));
+        }
     }
 }

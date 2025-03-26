@@ -27,7 +27,7 @@ public class ReklamaController : ControllerBase
         }
 
         _logger.LogInformation("Loading reklamas from file: {FilePath}", request.FilePath);
-        _reklamaService.LoadReklamasFromFile(request.FilePath);
+        _reklamaService.LoadReklamasFromFileAsync(request.FilePath);
         _logger.LogInformation("Data loaded successfully from {FilePath}", request.FilePath);
 
         return Ok(new { Message = "Data loaded successfully." });

@@ -1,6 +1,6 @@
 
 public interface IReklamaService
 {
-    void LoadReklamasFromFile(string path);
+    Task LoadReklamasFromFileAsync(string path);
     List<string> SearchByLocation(string location);
 }
